@@ -447,23 +447,56 @@ int main() {
         printf("Memory failed.\n");
         return 1;
     }
-	add_contact(Book);
-	View_all_contact(Book);
-	phonebook* contacts[100];
-	int count = read_contacts(Book, contacts);
-	sort_contacts_by_name(contacts, count);
-	save_sorted_contacts(contacts, count);
-	Search_Contact(Book);
-	Advanced_Search(Book);
-	Delete_Contact(Book);
-	Update_Contact(Book);
-	Backup_Phonebook(Book);
-	Duplicate_Detaction(Book -> Phone_Number);
+while (1) {    
+    char choice[10];
+        
 
-	for (int i = 0; i < count; i++) {
-        free(contacts[i]);
+        printf("\nWhat do you want to do?\n");
+        printf("1. Add Contact\n");
+        printf("2. View All Contacts\n");
+        printf("3. Search Contact\n");
+        printf("4. Advanced Search\n");
+        printf("5. Delete Contact\n");
+        printf("6. Update Contact\n");
+        printf("7. Backup Phonebook\n");
+        printf("Type 'exit' to quit.\n");
+
+        fgets(choice, sizeof(choice), stdin);
+        choice[strlen(choice) - 1] = '\0'; 
+
+        if (strcmp(choice, "exit") == 0) {
+            break; 
+        }
+
+        if (strcmp(choice, "1") == 0) {
+            add_contact(Book);
+        } else if (strcmp(choice, "2") == 0) {
+            View_all_contact(Book);
+        } else if (strcmp(choice, "3") == 0) {
+            Search_Contact(Book);
+        } else if (strcmp(choice, "4") == 0) {
+            Advanced_Search(Book);
+        } else if (strcmp(choice, "5") == 0) {
+            Delete_Contact(Book);
+        } else if (strcmp(choice, "6") == 0) {
+            Update_Contact(Book);
+        } else if (strcmp(choice, "7") == 0) {
+            Backup_Phonebook(Book);
+        } else {
+            printf("Invalid choice, please try again.\n");
+        }
+
+        
+        phonebook* contacts[100];  
+        int count = read_contacts(Book, contacts);  
+        if (count > 0) {
+            sort_contacts_by_name(contacts, count);  
+            save_sorted_contacts(contacts, count); 
+        }
+
     }
 	free(Book);
 	return 0;
 
 }
+
